@@ -65,7 +65,7 @@ typedef struct _gpio_pin_config
 	gpio_pin_direction_t pinDirection; /*!< GPIO direction, input or output */
 	/* Output configurations; ignore if configured as an input pin */
 	uint8_t outputLogic; /*!< Set a default output logic, which has no use in input */
-}gpio_pin_config_t;
+} gpio_pin_config_t;
 
 typedef struct
 {
@@ -84,22 +84,22 @@ typedef struct
 
 /* Define port config____________________________________________________________________________________*/
 
-//const port_config_t LED_PORT_config = {
+// const port_config_t LED_PORT_config = {
 //	.mux = PORT_MUX_GPIO};
 //
-//const port_config_t SW_PORT_config = {
+// const port_config_t SW_PORT_config = {
 //	.mux = PORT_MUX_GPIO,
 //	.pull = PORT_PULL_UP,
 //	.interrupt = PORT_INTERRUPT_DISABLE,
-//};
+// };
 //
-//const gpio_pin_config_t sw_config = {
+// const gpio_pin_config_t sw_config = {
 //	kGPIO_DigitalInput,
 //	0,
-//};
+// };
 
-uint8_t CheckSW( GPIO_Type *base, uint32_t pin );
+uint8_t CheckSW(GPIO_Type *base, uint32_t pin);
 void PORT_Init(PORT_Type *PORTx, uint8_t pin, const port_config_t *UserConfig);
-void GPIO_PinInit(GPIO_Type *base, uint32_t pin, const gpio_pin_config_t *config );
+void GPIO_PinInit(GPIO_Type *base, uint32_t pin, const gpio_pin_config_t *config);
 void Systick_init(systick_config_t *UserConfig);
 #endif

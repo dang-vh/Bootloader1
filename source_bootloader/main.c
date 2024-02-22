@@ -9,11 +9,9 @@
 #include "jump.h"
 #include "UART_bootloader.h"
 
-#define CURRENT_APP *(uint32_t*)0xFC00U
+#define CURRENT_APP *(uint32_t *)0xFC00U
 
 /* Define port config____________________________________________________________________________________*/
-
-
 
 const port_config_t SW_PORT_config = {
 	.mux = PORT_MUX_GPIO,
@@ -26,7 +24,7 @@ const gpio_pin_config_t sw_config = {
 	0,
 };
 
-uint32_t*Button=(uint32_t*)(0x400FF0D0U);
+uint32_t *Button = (uint32_t *)(0x400FF0D0U);
 uint32_t app = MY_APP;
 int main(void)
 {
@@ -37,27 +35,25 @@ int main(void)
 
 	SEND_message("HELLO\n");
 
-	if(0==CheckSW(GPIOD,2))
+	if (0 == CheckSW(GPIOD, 2))
 	{
 		bootloader();
 	}
 
-    	SEND_message("APP_MODE\n");
-    if(*(uint32_t *)ADDRESS_APP == 0xFFFFFFFF)
-    {
-    	SEND_message("not available, return to boot mode to backup or load the app\n");
-    }
-    else
-    {
-    	if(*(uint32_t *)(CURRENT_APP)==0xFFFFFFFF)
-    	{
-    		SEND_message("not available, return to boot mode to backup or load the app\n");
-    	}
-    	else
-    	{
-    		go2app(CURRENT_APP);
-    	}
-    }
-
+	SEND_message("APP_MODE\n");
+	if (*(uint32_t *)ADDRESS_APP == 0xFFFFFFFF)
+	{
+		SEND_message("not available, return to boot mode to backup or load the app\n");
+	}
+	else
+	{
+		if (*(uint32_t *)(CURRENT_APP) == 0xFFFFFFFF)
+		{
+			SEND_message("not available, return to boot mode to backup or load the app\n");
+		}
+		else
+		{
+			go2app(CURRENT_APP);
+		}
+	}
 }
-

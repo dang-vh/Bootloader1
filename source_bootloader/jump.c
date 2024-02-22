@@ -49,18 +49,16 @@ void go2app(uint32_t app)
 		__set_CONTROL(__get_CONTROL() & ~CONTROL_SPSEL_Msk);
 	}
 
-
-
 	// set vector table to app address ensuring this instruction is completed
 	__DMB();
 	SCB->VTOR = (uint32_t)app;
 	__DSB();
 
 	// set MSP
-	__set_MSP(*(uint32_t*)app);
+	__set_MSP(*(uint32_t *)app);
 
 	// jump to reset handler
-	JumpAddress = *((volatile uint32_t*)(app + 4));
+	JumpAddress = *((volatile uint32_t *)(app + 4));
 	Jump_To_Application = (functionPtr)(JumpAddress);
 
 	// reset MCU
@@ -69,24 +67,24 @@ void go2app(uint32_t app)
 
 void DelAPP(uint32_t address)
 {
-	uint32_t index=address;
-	if(address == MY_APP)
+	uint32_t index = address;
+	if (address == MY_APP)
 	{
-		for(index=address;index<LIMIT_MY_APP;index += 0x400)
+		for (index = address; index < LIMIT_MY_APP; index += 0x400)
 		{
-			if (*(uint32_t *)index != 0xFFFFFFFF )
+			if (*(uint32_t *)index != 0xFFFFFFFF)
 			{
-				DelFlash(index);// delete app
+				DelFlash(index); // delete app
 			}
 		}
 	}
-	if(address == BACKUP)
+	if (address == BACKUP)
 	{
-		for(index=address;index<LIMIT_BACKUP;index += 0x400)
+		for (index = address; index < LIMIT_BACKUP; index += 0x400)
 		{
-			if (*(uint32_t *)index != 0xFFFFFFFF )
+			if (*(uint32_t *)index != 0xFFFFFFFF)
 			{
-				DelFlash(index);// delete backup
+				DelFlash(index); // delete backup
 			}
 		}
 	}
